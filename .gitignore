@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environnement virtuel
+venv/
+
+# Base de données SQLite
+db.sqlite3
+
+# Fichiers médias (photos des voitures)
+media/
+
+# Fichiers statiques générés
+staticfiles/
+
+# Variables d'environnement
+.env
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

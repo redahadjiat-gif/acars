@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-5"> Résultats Recherche
+</h1>
+
+
+<form method="GET" class="row mb-4"> 
+
+    <div class="col-md-3">
+        <select name="type_vehicule" class="form-select">
+
+            <option value="">
+                Toutes les catégories
+            </option>
+
+            <option value="occasion">
+                Voiture d'occasion
+            </option>
+
+            <option value="moins3ans">
+                Voiture moins de 3 ans
+            </option>
+
+            <option value="neuve">
+                Voiture neuve
+            </option>
+
+        </select>
+    </div>
+
+    <div class="row mb-3"> </div>
+
+    <div class="col-md-3">
+        <input type="text"
+               name="query"
+               value="{{ query }}"
+               class="form-control"
+               placeholder="Marque ou modèle">
+    </div>
+
+    <div class="col-md-2">
+        <input type="number"
+               name="annee_min"
+               min="1900"
+               max="2100"
+               class="form-control"
+               placeholder="Année min">
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="prix_min" class="form-control" placeholder="Prix min">
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="prix_max" class="form-control" placeholder="Prix max">
+    </div>
+
+    <div class="col-md-2">
+        <select name="sort" class="form-select">
+            <option value="">Trier par</option>
+            <option value="prix_asc">Prix ↑</option>
+            <option value="prix_desc">Prix ↓</option>
+            <option value="annee_desc">Année ↓</option>
+            <option value="km_asc">Kilométrage ↑</option>
+        </select>
+    </div>
+
+    <div class="row mb-3"> </div>
+
+    <div class="col-md-2">
+        <select name="carburant" class="form-select">
+            <option value="">Carburant</option>
+            <option>Essence</option>
+            <option>Diesel</option>
+            <option>GPL</option>
+            <option>Hybride</option>
+            <option>Électrique</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="transmission" class="form-select">
+            <option value="">Transmission</option>
+            <option>Manuelle</option>
+            <option>Automatique</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="km_max" class="form-control" placeholder="Km max">
+    </div>
+
+        
+    <div class="col-md-1">
+        <button class="btn btn-primary w-100">
+            OK
+        </button>
+    </div>
+
+</form>
+
+
+
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+
+        {% if vehicles.has_previous %}
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ vehicles.previous_page_number }}">
+                Précédent
+            </a>
+        </li>
+        {% endif %}
+
+        {% for num in vehicles.paginator.page_range %}
+        <li class="page-item {% if vehicles.number == num %}active{% endif %}">
+            <a class="page-link"
+               href="?page={{ num }}">
+                {{ num }}
+            </a>
+        </li>
+        {% endfor %}
+
+        {% if vehicles.has_next %}
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ vehicles.next_page_number }}">
+                Suivant
+            </a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+<div class="row">
+
+{% for vehicle in vehicles %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card shadow car-card">
+
+<img src="{{ vehicle.image.url }}"
+    class="card-img-top car-image">
+
+<div class="card-body">
+
+<h4>
+{{ vehicle.marque }} {{ vehicle.modele }}
+</h4>
+
+<h5 class="text-success">
+{{ vehicle.prix }} €
+</h5>
+
+<a href="{% url 'detail' vehicle.id %}"
+class="btn btn-success w-100">
+Voir
+</a>
+
+</div>
+</div>
+</div>
+
+{% empty %}
+
+<p>Aucun véhicule trouvé.</p>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

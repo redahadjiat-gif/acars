@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- FILTRES -->
+<form method="GET" class="row mb-4"> 
+
+    <div class="col-md-3">
+        <select name="type_vehicule" class="form-select">
+
+            <option value="">
+                Toutes les catégories
+            </option>
+
+            <option value="occasion">
+                Voiture d'occasion
+            </option>
+
+            <option value="moins3ans">
+                Voiture moins de 3 ans
+            </option>
+
+            <option value="neuve">
+                Voiture neuve
+            </option>
+
+        </select>
+    </div>
+
+    <div class="row mb-3"> </div>
+
+    <div class="col-md-3">
+        <input type="text"
+               name="query"
+               value="{{ query }}"
+               class="form-control"
+               placeholder="Marque ou modèle">
+    </div>
+
+    <div class="col-md-2">
+        <input type="number"
+               name="annee_min"
+               min="1900"
+               max="2100"
+               class="form-control"
+               placeholder="Année min">
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="prix_min" class="form-control" placeholder="Prix min">
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="prix_max" class="form-control" placeholder="Prix max">
+    </div>
+
+    <div class="col-md-2">
+        <select name="sort" class="form-select">
+            <option value="">Trier par</option>
+            <option value="prix_asc">Prix ↑</option>
+            <option value="prix_desc">Prix ↓</option>
+            <option value="annee_desc">Année ↓</option>
+            <option value="km_asc">Kilométrage ↑</option>
+        </select>
+    </div>
+
+    <div class="row mb-3"> </div>
+
+    <div class="col-md-2">
+        <select name="carburant" class="form-select">
+            <option value="">Carburant</option>
+            <option>Essence</option>
+            <option>Diesel</option>
+            <option>GPL</option>
+            <option>Hybride</option>
+            <option>Électrique</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="transmission" class="form-select">
+            <option value="">Transmission</option>
+            <option>Manuelle</option>
+            <option>Automatique</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="km_max" class="form-control" placeholder="Km max">
+    </div>
+
+        
+    <div class="col-md-1">
+        <button class="btn btn-primary w-100">
+            OK
+        </button>
+    </div>
+
+</form>
+
+
+<h1 class="mb-5 text-center">
+Voitures Disponibles
+</h1>
+
+{% if vehicle.images.first %}
+    <img src="{{ vehicle.images.first.image.url }}"
+         class="card-img-top car-image">
+{% endif %}
+
+<div class="row">
+
+{% for vehicle in vehicles %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card shadow car-card h-100">
+
+{% if vehicle.images.first %}
+    <img src="{{ vehicle.images.first.image.url }}"
+         class="card-img-top car-image">
+{% endif %}
+
+<div class="card-body">
+
+<h4>
+{{ vehicle.marque }} {{ vehicle.modele }}
+</h4>
+
+<h5 class="text-success">
+{{ vehicle.prix }} €
+</h5>
+
+<p>
+{{ vehicle.annee }} • {{ vehicle.kilometrage }} km
+</p>
+
+<span class="badge bg-primary">
+    {{ vehicle.get_type_vehicule_display }}
+</span>
+
+<a href="{% url 'detail' vehicle.id %}"
+   class="btn btn-success w-100">
+Voir Détails
+</a>
+
+</div>
+</div>
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

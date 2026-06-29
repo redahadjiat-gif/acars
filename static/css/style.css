@@ -1,0 +1,37 @@
+body {
+    background: #f4f7fb;
+    font-family: Arial, sans-serif;
+}
+
+.custom-navbar {
+    background: linear-gradient(90deg,#0077b6,#2a9d8f);
+}
+
+.navbar-brand {
+    font-size: 28px;
+}
+
+.car-card {
+    transition: 0.3s;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.car-card:hover {
+    transform: translateY(-8px);
+}
+
+.car-image {
+    height: 240px;
+    object-fit: cover;
+}
+
+.btn-success {
+    background: #2a9d8f;
+    border: none;
+}
+
+.btn-success:hover {
+    background: #21867a;
+}
