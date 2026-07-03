@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 <div class="row">
@@ -9,26 +11,28 @@
     <div class="carousel-inner">
 
       <!-- Image principale -->
-      {% if vehicle.image %}
+
+      {% if vehicle.first_image %}
       <div class="carousel-item active">
-          <img src="{{ vehicle.image.url }}"
-              class="d-block w-100 rounded shadow zoom-img"
-              onclick="openModal(0)">
+          <img src="{{ vehicle.first_image.image.url }}"
+               class="d-block w-100 rounded shadow zoom-img"
+               onclick="openModal(0)">
       </div>
-      {% elif vehicle.images.first %}
+      {% else %}
       <div class="carousel-item active">
-          <img src="{{ vehicle.images.first.image.url }}"
-              class="d-block w-100 rounded shadow zoom-img"
-              onclick="openModal(0)">
+          <img src="{% static 'images/no-image.png' %}"
+               class="d-block w-100 rounded shadow">
       </div>
       {% endif %}
 
         <!-- Images supplémentaires -->
           {% for img in vehicle.images.all %}
-          <div class="carousel-item {% if forloop.first %}active{% endif %}">
-              <img src="{{ img.image.url }}"
-                   class="d-block w-100 rounded shadow zoom-img">
-          </div>
+              {% if img.image %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                  <img src="{{ img.image.url }}"
+                       class="d-block w-100 rounded shadow zoom-img">
+              </div>
+              {% endif %}
           {% empty %}
           <div class="carousel-item active">
               <img src="{% static 'images/no-image.png' %}"
@@ -60,22 +64,27 @@
           <div class="carousel-inner text-center">
 
             <!-- Image principale -->
-            {% if vehicle.image %}
+            {% if vehicle.first_image %}
             <div class="carousel-item active">
-                <img src="{{ vehicle.image.url }}" class="img-fluid">
+                <img src="{{ vehicle.first_image.image.url }}"
+                     class="d-block w-100 rounded shadow zoom-img"
+                     onclick="openModal(0)">
             </div>
-            {% elif vehicle.images.first %}
+            {% else %}
             <div class="carousel-item active">
-                <img src="{{ vehicle.images.first.image.url }}" class="img-fluid">
+                <img src="{% static 'images/no-image.png' %}"
+                     class="d-block w-100 rounded shadow">
             </div>
             {% endif %}
 
             <!-- Images -->
             {% for img in vehicle.images.all %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <img src="{{ img.image.url }}"
-                     class="d-block w-100 rounded shadow zoom-img">
-            </div>
+                {% if img.image %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ img.image.url }}"
+                         class="d-block w-100 rounded shadow zoom-img">
+                </div>
+                {% endif %}
             {% empty %}
             <div class="carousel-item active">
                 <img src="{% static 'images/no-image.png' %}"
