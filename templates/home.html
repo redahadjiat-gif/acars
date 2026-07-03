@@ -1,3 +1,5 @@
+{% load static %}
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -105,16 +107,6 @@ Voitures Disponibles
 
 
 
-{% if vehicle.first_image %}
-    <img src="{{ vehicle.first_image.image.url }}"
-         class="card-img-top car-image">
-{% else %}
-    <img src="{% static 'images/no-image.png' %}"
-         class="card-img-top car-image">
-{% endif %}
-
-
-
 <div class="row">
 
 {% for vehicle in vehicles %}
@@ -126,6 +118,10 @@ Voitures Disponibles
 {% if vehicle.images.first %}
     <img src="{{ vehicle.images.first.image.url }}"
          class="card-img-top car-image">
+{% else %}
+    <img src="{% static 'images/no-image.png' %}"
+         class="card-img-top car-image"
+         alt="Aucune image disponible">
 {% endif %}
 
 <div class="card-body">
