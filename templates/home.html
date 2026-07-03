@@ -103,10 +103,17 @@
 Voitures Disponibles
 </h1>
 
-{% if vehicle.images.first %}
-    <img src="{{ vehicle.images.first.image.url }}"
+
+
+{% if vehicle.first_image %}
+    <img src="{{ vehicle.first_image.image.url }}"
+         class="card-img-top car-image">
+{% else %}
+    <img src="{% static 'images/no-image.png' %}"
          class="card-img-top car-image">
 {% endif %}
+
+
 
 <div class="row">
 
@@ -128,7 +135,7 @@ Voitures Disponibles
 </h4>
 
 <h5 class="text-success">
-{{ vehicle.prix }} €
+{{ vehicle.prix }} millions
 </h5>
 
 <p>

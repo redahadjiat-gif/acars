@@ -14,6 +14,11 @@ class Vehicle(models.Model):
         choices=TYPE_CHOICES,
         default='moins3ans'
     )
+    
+    @property
+    def first_image(self):
+        return self.images.first()
+
     marque = models.CharField(max_length=100)
     modele = models.CharField(max_length=100)
     annee = models.IntegerField()
@@ -24,11 +29,9 @@ class Vehicle(models.Model):
     carburant = models.CharField(max_length=50)
     transmission = models.CharField(max_length=50)
     description = models.TextField()
-    image = models.ImageField(
-        upload_to='cars/',
-        blank=True,
-        null=True
-    )
+   
+   
+   
     disponible = models.BooleanField(default=True)
 
     def __str__(self):
