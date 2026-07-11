@@ -9,7 +9,9 @@
 <div id="vehicleCarousel" class="carousel slide" data-bs-ride="false">
 
     <div class="carousel-inner">
-
+        <div class="photo-counter">
+            📷 <span id="currentPhoto">1</span> / {{ vehicle.images.count }}
+        </div>
         {% for img in vehicle.images.all %}
 
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -141,5 +143,27 @@ Contacter WhatsApp
 </div>
 
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const carousel = document.querySelector("#vehicleCarousel");
+
+    if (!carousel) return;
+
+    carousel.addEventListener("slid.bs.carousel", function () {
+
+        let active = carousel.querySelector(".carousel-item.active");
+
+        let items = [...carousel.querySelectorAll(".carousel-item")];
+
+        let index = items.indexOf(active);
+
+        document.getElementById("currentPhoto").textContent = index + 1;
+
+    });
+
+});
+</script>
 
 {% endblock %}
