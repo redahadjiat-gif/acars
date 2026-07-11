@@ -26,23 +26,7 @@
 
     {% endfor %}
 
-    </div>
-        <!-- Images supplémentaires -->
-          {% for img in vehicle.images.all %}
-              {% if img.image %}
-              <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                  <img src="{{ img.image.url }}"
-                       class="d-block w-100 rounded shadow zoom-img vehicle-image">
-              </div>
-              {% endif %}
-          {% empty %}
-          <div class="carousel-item active">
-              <img src="{% static 'images/no-image.png' %}"
-                   class="d-block w-100 rounded shadow">
-          </div>
-          {% endfor %}
-
-    </div>
+    
 
     <!-- Flèches -->
     <button class="carousel-control-prev" type="button" data-bs-target="#vehicleCarousel" data-bs-slide="prev">
@@ -81,22 +65,7 @@
           </div>
 
           {% endfor %}
-
-            <!-- Images -->
-            {% for img in vehicle.images.all %}
-                {% if img.image %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="{{ img.image.url }}"
-                         class="d-block w-100 rounded shadow zoom-img vehicle-image">
-                </div>
-                {% endif %}
-            {% empty %}
-            <div class="carousel-item active">
-                <img src="{% static 'images/no-image.png' %}"
-                     class="d-block w-100 rounded shadow">
-            </div>
-            {% endfor %}
-
+            
           </div>
 
           <!-- Navigation -->
