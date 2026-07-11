@@ -62,6 +62,14 @@ def home(request):
     return render(request, 'home.html', {
         'vehicles': vehicles,
         'query': query,
+        'type_vehicule': type_vehicule,
+        'carburant': carburant,
+        'transmission': transmission,
+        'prix_min': prix_min,
+        'prix_max': prix_max,
+        'annee_min': annee_min,
+        'km_max': km_max,
+        'sort': sort,
     })
     
 def detail(request, pk):
