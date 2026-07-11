@@ -10,21 +10,23 @@
 
     <div class="carousel-inner">
 
-      <!-- Image principale -->
+    {% for img in vehicle.images.all %}
 
-      {% if vehicle.first_image %}
-      <div class="carousel-item active">
-          <img src="{{ vehicle.first_image.image.url }}"
-               class="d-block w-100 rounded shadow zoom-img vehicle-image">
-               onclick="openModal(0)">
-      </div>
-      {% else %}
-      <div class="carousel-item active">
-          <img src="{% static 'images/no-image.png' %}"
-               class="d-block w-100 rounded shadow">
-      </div>
-      {% endif %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ img.image.url }}"
+             class="d-block w-100 rounded shadow zoom-img vehicle-image">
+    </div>
 
+    {% empty %}
+
+    <div class="carousel-item active">
+        <img src="{% static 'images/no-image.png' %}"
+             class="d-block w-100 rounded shadow vehicle-image">
+    </div>
+
+    {% endfor %}
+
+    </div>
         <!-- Images supplémentaires -->
           {% for img in vehicle.images.all %}
               {% if img.image %}
@@ -64,18 +66,21 @@
           <div class="carousel-inner text-center">
 
             <!-- Image principale -->
-            {% if vehicle.first_image %}
-            <div class="carousel-item active">
-                <img src="{{ vehicle.first_image.image.url }}"
-                     class="d-block w-100 rounded shadow zoom-img vehicle-image">
-                     onclick="openModal(0)">
-            </div>
-            {% else %}
-            <div class="carousel-item active">
-                <img src="{% static 'images/no-image.png' %}"
-                     class="d-block w-100 rounded shadow">
-            </div>
-            {% endif %}
+          {% for img in vehicle.images.all %}
+
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <img src="{{ img.image.url }}"
+                   class="d-block w-100 rounded shadow zoom-img vehicle-image">
+          </div>
+
+          {% empty %}
+
+          <div class="carousel-item active">
+              <img src="{% static 'images/no-image.png' %}"
+                   class="d-block w-100 rounded shadow vehicle-image">
+          </div>
+
+          {% endfor %}
 
             <!-- Images -->
             {% for img in vehicle.images.all %}
